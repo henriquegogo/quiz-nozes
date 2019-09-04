@@ -1,0 +1,116 @@
+$smaller-screen: 375px;
+
+.report {
+  margin: 50px auto;
+  max-width: 534px;
+  text-align: center;
+  background: #FFFFFF;
+  border: 0.88px solid #E4E4E6;
+  box-shadow: 0px 1px 4px rgba(52, 60, 88, 0.4);
+  border-radius: 7.04px;
+  overflow: hidden;
+
+  h1 {
+    margin: 20px 0 5px;
+    font-size: 36px;
+    line-height: 48px;
+  }
+
+  h2 {
+    margin: 0;
+    font-size: 18px;
+    line-height: 24px;
+  }
+
+  img[alt='Mascot'] {
+    display: inline-block;
+    width: 100px;
+    vertical-align: middle;
+  }
+
+  .report-congrats {
+    display: inline-block;
+    margin-left: 20px;
+    vertical-align: middle;
+  }
+
+  .report-head {
+    padding: 60px 10px 100px;
+    color: #ffffff;
+    background: #438DE4;
+  }
+
+  .report-body {
+    color: #343C58;
+
+    h3 {
+      display: table;
+      margin: -20px auto 30px;
+      padding: 8px 10px;
+      height: 19px;
+      font-size: 14px;
+      line-height: 19px;
+      text-align: center;
+      background: #FFFFFF;
+      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+      border-radius: 5px;
+    }
+
+    button {
+      margin: 30px;
+    }
+
+    .report-resume {
+      display: inline-block;
+      border-radius: 10px;
+      background: #d6d8de;
+
+      .report-resume-points {
+        display: inline-block;
+        margin: 5px 30px;
+        width: 55px;
+
+        div {
+          font-size: 28px;
+          line-height: 36px;
+        }
+        span {
+          font-size: 13px;
+          line-height: 18px;
+        }
+      }
+    }
+
+    .report-detail {
+      div {
+        display: inline-block;
+        margin: 50px 0 20px;
+        padding: 0 6%;
+        text-align: left;
+        font-size: 14px;
+        line-height: 20px;
+        border-right: 1px solid #B8BED5;
+
+        b {
+          font-size: 16px;
+        }
+
+        @media (max-width: $smaller-screen) {
+          display: block;
+          text-align: center;
+          border: none;
+        }
+      }
+      div:last-child {
+        border-right: none;
+      }
+    }
+  }
+
+  @media (max-width: $smaller-screen) {
+    margin: -10px;
+    box-shadow: none;
+    border: none;
+    border-radius: 0;
+  }
+}

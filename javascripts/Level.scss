@@ -1,0 +1,14 @@
+.level {
+  float: right;
+  padding: 2px 15px;
+  font-size: 12px;
+  line-height: 16px;
+  color: #343C58;
+  background: #d6d8de;
+  border-radius: 14px;
+
+  .level-stars {
+    margin-right: 7px;
+    font-size: 18px;
+  }
+}
