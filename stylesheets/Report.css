@@ -6,76 +6,96 @@
   border: 0.88px solid #E4E4E6;
   box-shadow: 0px 1px 4px rgba(52, 60, 88, 0.4);
   border-radius: 7.04px;
-  overflow: hidden; }
-  .report h1 {
-    margin: 20px 0 5px;
-    font-size: 36px;
-    line-height: 48px; }
-  .report h2 {
-    margin: 0;
-    font-size: 18px;
-    line-height: 24px; }
-  .report img[alt='Mascot'] {
-    display: inline-block;
-    width: 100px;
-    vertical-align: middle; }
-  .report .report-congrats {
-    display: inline-block;
-    margin-left: 20px;
-    vertical-align: middle; }
-  .report .report-head {
-    padding: 60px 10px 100px;
-    color: #ffffff;
-    background: #438DE4; }
-  .report .report-body {
-    color: #343C58; }
-    .report .report-body h3 {
-      display: table;
-      margin: -20px auto 30px;
-      padding: 8px 10px;
-      height: 19px;
-      font-size: 14px;
-      line-height: 19px;
-      text-align: center;
-      background: #FFFFFF;
-      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-      border-radius: 5px; }
-    .report .report-body button {
-      margin: 30px; }
-    .report .report-body .report-resume {
-      display: inline-block;
-      border-radius: 10px;
-      background: #d6d8de; }
-      .report .report-body .report-resume .report-resume-points {
-        display: inline-block;
-        margin: 5px 30px;
-        width: 55px; }
-        .report .report-body .report-resume .report-resume-points div {
-          font-size: 28px;
-          line-height: 36px; }
-        .report .report-body .report-resume .report-resume-points span {
-          font-size: 13px;
-          line-height: 18px; }
-    .report .report-body .report-detail div {
-      display: inline-block;
-      margin: 50px 0 20px;
-      padding: 0 6%;
-      text-align: left;
-      font-size: 14px;
-      line-height: 20px;
-      border-right: 1px solid #B8BED5; }
-      .report .report-body .report-detail div b {
-        font-size: 16px; }
-      @media (max-width: 375px) {
-        .report .report-body .report-detail div {
-          display: block;
-          text-align: center;
-          border: none; } }
-    .report .report-body .report-detail div:last-child {
-      border-right: none; }
-  @media (max-width: 375px) {
-    .report {
-      margin: -10px;
-      box-shadow: none;
-      border: none;
-      border-radius: 0; } }
+  overflow: hidden;
+}
+.report h1 {
+  margin: 20px 0 5px;
+  font-size: 36px;
+  line-height: 48px;
+}
+.report h2 {
+  margin: 0;
+  font-size: 18px;
+  line-height: 24px;
+}
+.report img[alt='Mascot'] {
+  display: inline-block;
+  width: 100px;
+  vertical-align: middle;
+}
+.report .report-congrats {
+  display: inline-block;
+  margin-left: 20px;
+  vertical-align: middle;
+}
+.report .report-head {
+  padding: 60px 10px 100px;
+  color: #ffffff;
+  background: #438DE4;
+}
+.report .report-body {
+  color: #343C58;
+}
+.report .report-body h3 {
+  display: table;
+  margin: -20px auto 30px;
+  padding: 8px 10px;
+  height: 19px;
+  font-size: 14px;
+  line-height: 19px;
+  text-align: center;
+  background: #FFFFFF;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 5px;
+}
+.report .report-body button {
+  margin: 30px;
+}
+.report .report-body .report-resume {
+  display: inline-block;
+  border-radius: 10px;
+  background: #d6d8de;
+}
+.report .report-body .report-resume .report-resume-points {
+  display: inline-block;
+  margin: 5px 30px;
+  width: 55px;
+}
+.report .report-body .report-resume .report-resume-points div {
+  font-size: 28px;
+  line-height: 36px;
+}
+.report .report-body .report-resume .report-resume-points span {
+  font-size: 13px;
+  line-height: 18px;
+}
+.report .report-body .report-detail div {
+  display: inline-block;
+  margin: 50px 0 20px;
+  padding: 0 6%;
+  text-align: left;
+  font-size: 14px;
+  line-height: 20px;
+  border-right: 1px solid #B8BED5;
+}
+.report .report-body .report-detail div b {
+  font-size: 16px;
+}
+@media (max-width: 375px) {
+  .report .report-body .report-detail div {
+    display: block;
+    text-align: center;
+    border: none;
+  }
+}
+.report .report-body .report-detail div:last-child {
+  border-right: none;
+}
+@media (max-width: 375px) {
+  .report {
+    margin: -10px;
+    box-shadow: none;
+    border: none;
+    border-radius: 0;
+  }
+}
