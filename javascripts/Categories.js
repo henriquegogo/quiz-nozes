@@ -4,8 +4,6 @@ const { div, h1, a } = Elements;
 
 function Categories() {
   const categories = store.categories || [];
-
-  console.log(this);
   !this.isConnected && getCategories().then(data => dispatch('categories', data));
 
   return div(

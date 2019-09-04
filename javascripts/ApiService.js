@@ -8,9 +8,20 @@ export async function getCategories() {
 }
 
 export async function getQuestions(category_id, difficulty) {
-  const resp = await fetch(QUESTION_URL
-    .replace('{difficulty}', difficulty)
-    .replace('{category}', category_id)
-  ).then(resp => resp.json());
-  return resp.results;
+  let questions = await Promise.all([
+    fetch(QUESTION_URL.replace('{category}', category_id).replace('{difficulty}', 'easy')).then(resp => resp.json()),
+    fetch(QUESTION_URL.replace('{category}', category_id).replace('{difficulty}', 'medium')).then(resp => resp.json()),
+    fetch(QUESTION_URL.replace('{category}', category_id).replace('{difficulty}', 'hard')).then(resp => resp.json()),
+  ]).then(([ easy, medium, hard ]) => {
+    return [ ...easy.results, ...medium.results, ...hard.results ];
+  });
+
+  questions = questions.map(question => {
+    const options = (question.incorrect_answers && question.correct_answer) ?
+      [...question.incorrect_answers, question.correct_answer] : [];
+    options.sort(() => Math.random() - 0.5); // Shuffle
+    return {...question, options };
+  });
+
+  return questions;
 }

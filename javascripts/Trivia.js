@@ -1,28 +1,38 @@
 //import { questions, clearQuestions, answerQuestion } from '../actions/questions';
+import Elements, { store, dispatch, connect } from '../lib/nozes/nozes.js';
+import { getQuestions } from './ApiService.js'
 import Level from './Level.js'
 import Modal from './Modal.js'
+const { div, a, i, h2, h3, p, form, label, input, span, button, section } = Elements;
 
 const MAX_QUESTIONS = 10;
 const EASY = 'easy';
 const MEDIUM = 'medium';
 const HARD = 'hard';
 
-function Trivia(state = {
-  selected_answer: null,
-  question_index: 0,
-  correct: null,
-  filter: MEDIUM
-}) {
+function Trivia(props) {
 
-  return div(
-  );
-}
+  props = {
+    category: null,
+    selected_answer: null,
+    question_index: 0,
+    correct: null,
+    filter: MEDIUM,
+    questions: store.questions || [],
+    ...store.trivia || [],
+    ...props
+  };
 
-  selectAnswer = (e) => {
-    this.setState({ selected_answer: e.target.value });
+  const { category, selected_answer, question_index, correct, filter, questions } = props;
+  const question = questions.filter(q => q.difficulty === filter)[question_index] || {};
+
+  !this.isConnected && getQuestions(category, filter).then(questions => dispatch('questions', questions));
+
+  const selectAnswer = (e) => {
+    dispatch('trivia', { ...props, selected_answer: e.target.value });
   }
 
-  submit = (e, question) => {
+  const submit = (e, question) => {
     e.preventDefault();
     const correct = this.state.selected_answer === question.correct_answer;
     this.setState({ correct });
@@ -36,12 +46,12 @@ function Trivia(state = {
     this.props.dispatch(answerQuestion(answer));
   }
 
-  close = (e) => {
+  const close = (e) => {
     e.preventDefault();
-    this.props.history.push('/');
+    window.location.href = '#/';
   }
 
-  next = (e) => {
+  const next = (e) => {
     e.preventDefault();
     const { question_index } = this.state;
     const { answers } = this.props;
@@ -60,7 +70,7 @@ function Trivia(state = {
     }
   }
 
-  calcFilter() {
+  const calcFilter = () => {
     const { answers } = this.props;
     let next_filter = this.state.filter;
 
@@ -89,44 +99,31 @@ function Trivia(state = {
     return next_filter;
   }
 
-  componentDidMount() {
-    this.props.dispatch(questions(this.props.category));
-  }
-
-  componentWillUnmount() {
+  const componentWillUnmount = () => {
     this.props.dispatch(clearQuestions());
   }
 
-  render() {
-    const { selected_answer, question_index, correct, filter } = this.state;
-    const { questions } = this.props;
-    const question = questions.filter(q => q.difficulty === filter)[question_index] || {};
-
-    return !question.question ? 'Loading...' : (
-      <Fragment>
-        <a href='#close' onClick={this.close}><i>ⓧ</i> Close</a>
-        <h2>{question.category}</h2>
-        <section>
-          <Level difficulty={question.difficulty} />
-          <h3>Question {question_index + 1}</h3>
-          {/* Needs to use dangerouslySetInnerHTML because api returns some HTML encoded text */}
-          <p dangerouslySetInnerHTML={{ __html: question.question }} />
-          <form className='answers' ref={this.form = createRef()}
-            onChange={this.selectAnswer}
-            onSubmit={e => this.submit(e, question)}>
-            {question.options && question.options.map(option =>
-              <label key={btoa(option)}>
-                <input type='radio' name='option' value={option} />
-                <span dangerouslySetInnerHTML={{ __html: option }} />
-              </label>
-            )}
-            <button type='submit' disabled={!selected_answer}>Send answer</button>
-            {correct !== null && <Modal correct={correct} next={this.next} />}
-          </form>
-        </section>
-      </Fragment>
-    );
-  }
+  return !question.question ? div('Loading...') : (
+    span(
+      a({ href: '#close', onclick: close }, i('ⓧ'), ' Close'),
+      h2(question.category),
+      section(
+        Level({ difficulty: question.difficulty }),
+        h3(`Question ${question_index + 1}`),
+        p(question.question),
+        form({ className: 'answers', onchange: selectAnswer, onsubmit: e => submit(e, question) },
+          ...question.options && question.options.map(option =>
+            label(
+              input({ type: 'radio', name: 'option', value: option }),
+              span(option)
+            )
+          ),
+          button({ type: 'submit', disabled: !selected_answer }, 'Send answer'),
+          correct !== null && Modal({ correct, next })
+        )
+      )
+    )
+  );
 }
 
-export default connect(({ questions }) => questions)(withRouter(Trivia));
+export default connect(['questions', 'trivia'], Trivia);
