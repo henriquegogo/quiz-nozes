@@ -1,10 +1,13 @@
-import Elements, { store, dispatch, connect } from '../lib/nozes/nozes.js';
+import Elements, { store, watch, dispatch, connect } from '../lib/nozes/nozes.js';
 import { getCategories } from './ApiService.js'
 const { div, h1, a } = Elements;
 
-function Categories() {
-  const categories = store.categories || [];
-  !this.isConnected && getCategories().then(data => dispatch('categories', data));
+watch(function log() {
+  console.log('watched');
+});
+
+function Categories(categories = []) {
+  !this.isConnected && getCategories().then(data => dispatch(Categories, data));
 
   return div(
     h1('Categories'),
@@ -17,4 +20,4 @@ function Categories() {
   );
 }
 
-export default connect('categories', Categories);
+export default connect(Categories);
