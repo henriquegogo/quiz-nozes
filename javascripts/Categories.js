@@ -1,8 +1,8 @@
-import Elements, { store, dispatch, connect } from '../lib/nozes/nozes.js';
+import Elements, { dispatch, connect } from '../lib/nozes/nozes.js';
 import { getCategories } from './ApiService.js'
 const { div, h1, a } = Elements;
 
-function Categories({ categories = store.categories || [] }) {
+function Categories({ categories = [] }) {
 
   !this.isConnected && getCategories().then(categories =>
     dispatch('categories', categories)

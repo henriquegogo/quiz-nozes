@@ -19,16 +19,16 @@ function Trivia({
   filter = MEDIUM
 }) {
 
-  const question = questions && questions.filter(q => q.difficulty === filter)[question_index] || {};
+  const question = questions.filter(q => q.difficulty === filter)[question_index] || {};
 
   if (!this.isConnected) {
     getQuestions(category, filter).then(questions =>
-      dispatch('questions', questions)
+      dispatch(Trivia, { questions })
     );
   }
 
   const selectAnswer = (e) => {
-    dispatch(Trivia.name, { selected_answer: e.target.value });
+    dispatch(Trivia, { selected_answer: e.target.value });
   }
 
   const submit = (e, question) => {
@@ -125,4 +125,4 @@ function Trivia({
   );
 }
 
-export default connect(['questions', Trivia.name], Trivia);
+export default connect(Trivia);
