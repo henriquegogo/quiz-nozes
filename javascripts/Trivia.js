@@ -1,5 +1,5 @@
 //import { questions, clearQuestions, answerQuestion } from '../actions/questions';
-import Elements, { store, dispatch, connect } from '../lib/nozes/nozes.js';
+import Elements, { dispatch, connect } from '../lib/nozes/nozes.js';
 import { getQuestions } from './ApiService.js'
 import Level from './Level.js'
 import Modal from './Modal.js'
@@ -10,26 +10,25 @@ const EASY = 'easy';
 const MEDIUM = 'medium';
 const HARD = 'hard';
 
-function Trivia(props) {
+function Trivia({
+  category = 0,
+  questions = [],
+  selected_answer = null,
+  question_index = 0,
+  correct = null,
+  filter = MEDIUM
+}) {
 
-  props = {
-    category: null,
-    selected_answer: null,
-    question_index: 0,
-    correct: null,
-    filter: MEDIUM,
-    questions: store.questions || [],
-    ...store.trivia || [],
-    ...props
-  };
+  const question = questions && questions.filter(q => q.difficulty === filter)[question_index] || {};
 
-  const { category, selected_answer, question_index, correct, filter, questions } = props;
-  const question = questions.filter(q => q.difficulty === filter)[question_index] || {};
-
-  !this.isConnected && getQuestions(category, filter).then(questions => dispatch('questions', questions));
+  if (!this.isConnected) {
+    getQuestions(category, filter).then(questions =>
+      dispatch('questions', questions)
+    );
+  }
 
   const selectAnswer = (e) => {
-    dispatch('trivia', { ...props, selected_answer: e.target.value });
+    dispatch(Trivia.name, { selected_answer: e.target.value });
   }
 
   const submit = (e, question) => {
@@ -126,4 +125,4 @@ function Trivia(props) {
   );
 }
 
-export default connect(['questions', 'trivia'], Trivia);
+export default connect(['questions', Trivia.name], Trivia);

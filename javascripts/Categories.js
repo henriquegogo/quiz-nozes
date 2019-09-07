@@ -2,9 +2,11 @@ import Elements, { store, dispatch, connect } from '../lib/nozes/nozes.js';
 import { getCategories } from './ApiService.js'
 const { div, h1, a } = Elements;
 
-function Categories() {
-  const categories = store.categories || [];
-  !this.isConnected && getCategories().then(data => dispatch('categories', data));
+function Categories({ categories = store.categories || [] }) {
+
+  !this.isConnected && getCategories().then(categories =>
+    dispatch('categories', categories)
+  );
 
   return div(
     h1('Categories'),
