@@ -1,5 +1,5 @@
 //import { questions, clearQuestions, answerQuestion } from '../actions/questions';
-import Elements, { dispatch, connect } from '../lib/nozes/nozes.js';
+import Elements, { store, dispatch, connect } from '../lib/nozes/nozes.js';
 import { getQuestions } from './ApiService.js'
 import Level from './Level.js'
 import Modal from './Modal.js'
@@ -13,12 +13,14 @@ const HARD = 'hard';
 function Trivia({
   category = 0,
   questions = [],
+  answers = [],
   selected_answer = null,
   question_index = 0,
   correct = null,
-  filter = MEDIUM
+  filter = MEDIUM,
 }) {
 
+  let form_dom;
   const question = questions.filter(q => q.difficulty === filter)[question_index] || {};
 
   if (!this.isConnected) {
@@ -33,16 +35,16 @@ function Trivia({
 
   const submit = (e, question) => {
     e.preventDefault();
-    const correct = this.state.selected_answer === question.correct_answer;
-    this.setState({ correct });
+    const correct = selected_answer === question.correct_answer;
+    dispatch(Trivia, { correct });
 
     const answer = {
       ...question,
-      selected_answer: this.state.selected_answer,
+      selected_answer: selected_answer,
       correct,
       date_time: new Date()
     };
-    this.props.dispatch(answerQuestion(answer));
+    dispatch('answers', answers.concat(answer));
   }
 
   const close = (e) => {
@@ -52,26 +54,23 @@ function Trivia({
 
   const next = (e) => {
     e.preventDefault();
-    const { question_index } = this.state;
-    const { answers } = this.props;
 
     if (answers.length < MAX_QUESTIONS) {
-      this.form.current.reset();
-      this.setState({
+      form_dom.reset();
+      dispatch(Trivia, {
         selected_answer: null,
         question_index: question_index + 1,
         correct: null,
-        filter: this.calcFilter()
+        filter: calcFilter()
       });
     }
     else {
-      this.props.history.push('/report/' + this.props.category);
+      window.location.href = '#/report/' + category;
     }
   }
 
   const calcFilter = () => {
-    const { answers } = this.props;
-    let next_filter = this.state.filter;
+    let next_filter = filter;
 
     if (answers.length > 1) {
       const last = answers[answers.length-1];
@@ -98,10 +97,6 @@ function Trivia({
     return next_filter;
   }
 
-  const componentWillUnmount = () => {
-    this.props.dispatch(clearQuestions());
-  }
-
   return !question.question ? div('Loading...') : (
     span(
       a({ href: '#close', onclick: close }, i('ⓧ'), ' Close'),
@@ -113,16 +108,17 @@ function Trivia({
         form({ className: 'answers', onchange: selectAnswer, onsubmit: e => submit(e, question) },
           ...question.options && question.options.map(option =>
             label(
-              input({ type: 'radio', name: 'option', value: option }),
+              input({ type: 'radio', name: 'option', value: option, checked: option === selected_answer }),
               span(option)
             )
           ),
           button({ type: 'submit', disabled: !selected_answer }, 'Send answer'),
-          correct !== null && Modal({ correct, next })
+          correct !== null && Modal({ correct, next }),
+          ref => form_dom = ref
         )
       )
     )
   );
 }
 
-export default connect(Trivia);
+export default connect('answers', Trivia);
