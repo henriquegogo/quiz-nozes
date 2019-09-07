@@ -12,23 +12,24 @@ const HARD = 'hard';
 
 function Trivia(props) {
 
-  const {
-    category = null,
-    selected_answer = null,
-    question_index = 0,
-    correct = null,
-    filter = MEDIUM,
-    questions = store.questions || [],
-  } = { ...props };
+  props = {
+    category: null,
+    selected_answer: null,
+    question_index: 0,
+    correct: null,
+    filter: MEDIUM,
+    questions: store.questions || [],
+    ...store.trivia || [],
+    ...props
+  };
 
-  console.log(props);
-
+  const { category, selected_answer, question_index, correct, filter, questions } = props;
   const question = questions.filter(q => q.difficulty === filter)[question_index] || {};
 
   !this.isConnected && getQuestions(category, filter).then(questions => dispatch('questions', questions));
 
   const selectAnswer = (e) => {
-    dispatch(Trivia, { ...props, selected_answer: e.target.value });
+    dispatch('trivia', { ...props, selected_answer: e.target.value });
   }
 
   const submit = (e, question) => {
@@ -125,4 +126,4 @@ function Trivia(props) {
   );
 }
 
-export default connect('questions', Trivia);
+export default connect(['questions', 'trivia'], Trivia);
