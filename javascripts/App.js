@@ -2,7 +2,7 @@ import Elements, { router } from '../lib/nozes/nozes.js';
 import Header from './Header.js';
 import Categories from './Categories.js';
 import Trivia from './Trivia.js';
-//import Report from './Report.js';
+import Report from './Report.js';
 const { div, main } = Elements;
 
 function App() {
@@ -15,9 +15,7 @@ function App() {
           const cached_answers = window.localStorage.getItem('category_' + category);
           return cached_answers ? window.location.href = '#/report/' + category : Trivia({ category });
         },
-        /*
         report: category => Report({ category })
-        */
       })
     )
   );

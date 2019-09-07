@@ -1,5 +1,4 @@
-//import { questions, clearQuestions, answerQuestion } from '../actions/questions';
-import Elements, { store, dispatch, connect } from '../lib/nozes/nozes.js';
+import Elements, { dispatch, connect } from '../lib/nozes/nozes.js';
 import { getQuestions } from './ApiService.js'
 import Level from './Level.js'
 import Modal from './Modal.js'
@@ -11,7 +10,7 @@ const MEDIUM = 'medium';
 const HARD = 'hard';
 
 function Trivia({
-  category = 0,
+  category = null,
   questions = [],
   answers = [],
   selected_answer = null,
