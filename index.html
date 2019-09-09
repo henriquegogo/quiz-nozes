@@ -19,5 +19,8 @@
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
   </body>
+  <script>
+    navigator.serviceWorker && navigator.serviceWorker.register('serviceWorker.js');
+  </script>
   <script type='module' src='javascripts/index.js'></script>
 </html>
