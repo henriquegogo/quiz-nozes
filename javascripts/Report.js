@@ -51,7 +51,7 @@ function Report({
   return (
     div({ className: 'report' },
       div({ className: 'report-head' },
-        img({ src: '../images/mascot.png', alt: 'Mascot' }),
+        img({ src: './images/mascot.png', alt: 'Mascot' }),
         div({ className: 'report-congrats' },
           h1('Congrats!'),
           h2('You finished the test')
