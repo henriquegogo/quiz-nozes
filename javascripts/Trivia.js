@@ -104,12 +104,12 @@ function Trivia({
       section(
         Level({ difficulty: question.difficulty }),
         h3(`Question ${question_index + 1}`),
-        p(question.question),
+        p(m => m.innerHTML = question.question),
         form({ className: 'answers', onchange: selectAnswer, onsubmit: e => submit(e, question) },
           ...question.options && question.options.map(option =>
             label(
               input({ type: 'radio', name: 'option', value: option, checked: option === selected_answer }),
-              span(option)
+              span(m => m.innerHTML = option)
             )
           ),
           button({ type: 'submit', disabled: !selected_answer }, 'Send answer'),
