@@ -20,9 +20,9 @@ function Report({
   if (!this.isConnected) {
     window.scrollTo(0, 0);
 
-    const cached_answers = window.localStorage.getItem('category_' + category);
+    const cached_answers = window.localStorage.getItem('quiz-nozes-category_' + category);
     answers = cached_answers ? JSON.parse(cached_answers) : answers;
-    answers.length === MAX_QUESTIONS && window.localStorage.setItem('category_' + category, JSON.stringify(answers));
+    answers.length === MAX_QUESTIONS && window.localStorage.setItem('quiz-nozes-category_' + category, JSON.stringify(answers));
     
     dispatch(Report, { answers });
   }
