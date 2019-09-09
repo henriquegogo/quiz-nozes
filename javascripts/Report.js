@@ -1,14 +1,13 @@
 import Elements, { dispatch, connect } from '../lib/nozes/nozes.js';
-const { div, span, img, h1, h2, h3, b, br } = Elements;
+import { MAX_QUESTIONS, EASY, MEDIUM, HARD } from './Trivia.js';
+const { div, span, img, h1, h2, h3, b, br, button } = Elements;
 
-const EASY = 'easy';
-const MEDIUM = 'medium';
-const HARD = 'hard';
+function Report({
+  answers = [],
+  category = null
+}) {
 
-function Report(props) {
-  const {
-    answers = [],
-    category = null,
+  let
     total_hits = 0,
     total_mistakes = 0,
     easy_hits = 0,
@@ -17,32 +16,36 @@ function Report(props) {
     medium_mistakes = 0,
     hard_hits = 0,
     hard_mistakes = 0
-  } = props;
 
   if (!this.isConnected) {
     window.scrollTo(0, 0);
 
-    let new_state = answers.reduce((result, answer) => {
-      answer.correct ? result.total_hits++ : result.total_mistakes++;
-      switch (answer.difficulty) {
-        case EASY:
-          answer.correct ? result.easy_hits++ : result.easy_mistakes++;
-          break;
-        case MEDIUM:
-          answer.correct ? result.medium_hits++ : result.medium_mistakes++;
-          break;
-        case HARD:
-          answer.correct ? result.hard_hits++ : result.hard_mistakes++;
-          break;
-        default:
-      }
-      return result;
-    }, { ...props });
-
     const cached_answers = window.localStorage.getItem('category_' + category);
-    new_state = cached_answers ? JSON.parse(cached_answers) : new_state;
-    window.localStorage.setItem('category_' + category, JSON.stringify(new_state));
-    dispatch(Report, new_state);
+    answers = cached_answers ? JSON.parse(cached_answers) : answers;
+    answers.length === MAX_QUESTIONS && window.localStorage.setItem('category_' + category, JSON.stringify(answers));
+    
+    dispatch(Report, { answers });
+  }
+
+  answers.forEach(answer => {
+    answer.correct ? total_hits++ : total_mistakes++;
+    switch (answer.difficulty) {
+      case EASY:
+        answer.correct ? easy_hits++ : easy_mistakes++;
+        break;
+      case MEDIUM:
+        answer.correct ? medium_hits++ : medium_mistakes++;
+        break;
+      case HARD:
+        answer.correct ? hard_hits++ : hard_mistakes++;
+        break;
+      default:
+    }
+  });
+
+  const back = (e) => {
+    e.preventDefault();
+    window.location.href = '#/';
   }
 
   return (
@@ -82,7 +85,8 @@ function Report(props) {
             'Hits: ', hard_hits, br(),
             'Mistakes: ', hard_mistakes
           )
-        )
+        ),
+        button({ onclick: back }, 'Back to start')
       )
     )
   );

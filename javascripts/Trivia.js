@@ -1,13 +1,13 @@
-import Elements, { dispatch, connect } from '../lib/nozes/nozes.js';
+import Elements, { store, dispatch, connect } from '../lib/nozes/nozes.js';
 import { getQuestions } from './ApiService.js'
 import Level from './Level.js'
 import Modal from './Modal.js'
 const { div, a, i, h2, h3, p, form, label, input, span, button, section } = Elements;
 
-const MAX_QUESTIONS = 10;
-const EASY = 'easy';
-const MEDIUM = 'medium';
-const HARD = 'hard';
+export const MAX_QUESTIONS = 10;
+export const EASY = 'easy';
+export const MEDIUM = 'medium';
+export const HARD = 'hard';
 
 function Trivia({
   category = null,
@@ -34,16 +34,17 @@ function Trivia({
 
   const submit = (e, question) => {
     e.preventDefault();
-    const correct = selected_answer === question.correct_answer;
-    dispatch(Trivia, { correct });
 
+    const correct = selected_answer === question.correct_answer;
     const answer = {
       ...question,
       selected_answer: selected_answer,
       correct,
       date_time: new Date()
     };
+
     dispatch('answers', answers.concat(answer));
+    dispatch(Trivia, { correct });
   }
 
   const close = (e) => {
