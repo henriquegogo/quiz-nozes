@@ -1,4 +1,4 @@
-import Elements, { store, dispatch, connect } from '../lib/nozes/nozes.js';
+import Elements, { dispatch, connect } from '../lib/nozes/nozes.js';
 import { getQuestions } from './ApiService.js'
 import Level from './Level.js'
 import Modal from './Modal.js'

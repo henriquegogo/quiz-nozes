@@ -4,9 +4,10 @@ const { div, h1, a } = Elements;
 
 function Categories({ categories = [] }) {
 
-  !this.isConnected && getCategories().then(categories =>
+  !this.isConnected && getCategories().then(categories => {
+    dispatch('answers', []);
     dispatch('categories', categories)
-  );
+  });
 
   return div(
     h1('Categories'),
