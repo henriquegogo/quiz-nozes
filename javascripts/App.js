@@ -12,7 +12,7 @@ function App() {
       router({
         index: Categories,
         trivia: category => {
-          const cached_answers = window.localStorage.getItem('category_' + category);
+          const cached_answers = window.localStorage.getItem('quiz-nozes-category_' + category);
           return cached_answers ? window.location.href = '#/report/' + category : Trivia({ category });
         },
         report: category => Report({ category })
