@@ -1,5 +1,4 @@
-import Elements from '../lib/nozes/nozes.js';
-const { header, h1 } = Elements;
+const { header, h1 } = Nozes;
 
 function Header() {
   return header(

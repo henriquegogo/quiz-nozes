@@ -1,5 +1,4 @@
-import Elements from '../lib/nozes/nozes.js';
-const { div, i, h2, button } = Elements;
+const { div, i, h2, button } = Nozes;
 
 function Modal({ correct, next }) {
   return div(

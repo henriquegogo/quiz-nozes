@@ -1,5 +1,4 @@
-import Elements from '../lib/nozes/nozes.js';
-const { div, span } = Elements;
+const { div, span } = Nozes;
 
 const levels = {
   easy: { stars: '★☆☆', text: 'Easy' },
