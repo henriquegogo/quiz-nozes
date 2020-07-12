@@ -1,7 +1,8 @@
+import { createElement, dispatch, connect } from '../lib/nozes/index.js';
 import { getQuestions } from './ApiService.js'
 import Level from './Level.js'
 import Modal from './Modal.js'
-const { dispatch, connect, div, a, i, h2, h3, p, form, label, input, span, button, section } = Nozes;
+const { div, a, i, h2, h3, p, form, label, input, span, button, section } = createElement;
 
 export const MAX_QUESTIONS = 10;
 export const EASY = 'easy';

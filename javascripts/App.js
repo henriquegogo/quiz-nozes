@@ -2,7 +2,8 @@ import Header from './Header.js';
 import Categories from './Categories.js';
 import Trivia from './Trivia.js';
 import Report from './Report.js';
-const { router, div, main } = Nozes;
+import { createElement, router } from '../lib/nozes/index.js';
+const { div, main } = createElement;
 
 function App() {
   return div(

@@ -1,5 +1,6 @@
+import { createElement, dispatch, connect } from '../lib/nozes/index.js';
 import { MAX_QUESTIONS, EASY, MEDIUM, HARD } from './Trivia.js';
-const { dispatch, connect, div, span, img, h1, h2, h3, b, br, button } = Nozes;
+const { div, span, img, h1, h2, h3, b, br, button } = createElement;
 
 function Report({
   answers = [],

@@ -1,4 +1,5 @@
-const { div, i, h2, button } = Nozes;
+import { createElement } from '../lib/nozes/index.js';
+const { div, i, h2, button } = createElement;
 
 function Modal({ correct, next }) {
   return div(

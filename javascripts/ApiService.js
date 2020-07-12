@@ -7,7 +7,7 @@ export async function getCategories() {
   return resp.trivia_categories;
 }
 
-export async function getQuestions(category_id, difficulty) {
+export async function getQuestions(category_id) {
   let questions = await Promise.all([
     fetch(QUESTION_URL.replace('{category}', category_id).replace('{difficulty}', 'easy')).then(resp => resp.json()),
     fetch(QUESTION_URL.replace('{category}', category_id).replace('{difficulty}', 'medium')).then(resp => resp.json()),

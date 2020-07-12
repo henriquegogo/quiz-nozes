@@ -1,5 +1,6 @@
 import { getCategories } from './ApiService.js'
-const { dispatch, connect, div, h1, a } = Nozes;
+import { createElement, dispatch, connect } from '../lib/nozes/index.js';
+const { div, h1, a } = createElement;
 
 function Categories({ categories = [] }) {
 

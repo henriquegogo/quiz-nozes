@@ -1,4 +1,5 @@
-const { div, span } = Nozes;
+import { createElement } from '../lib/nozes/index.js';
+const { div, span } = createElement;
 
 const levels = {
   easy: { stars: '★☆☆', text: 'Easy' },
